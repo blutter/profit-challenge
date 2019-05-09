@@ -1,7 +1,6 @@
 using FluentAssertions;
 using OptimalProfit;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace OptimalProfitTests
