@@ -10,7 +10,7 @@ namespace OptimalProfit
             ValidateStockPrices(stockPrices);
 
             var maxProfit = 0;
-            var sampleBuyPrice = stockPrices[0];
+            var sampleBuyPrice = stockPrices.FirstOrDefault();
             for (int i = 1; i < stockPrices.Length; ++i)
             {
                 var sampleSellPrice = stockPrices[i];
