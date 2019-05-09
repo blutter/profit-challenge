@@ -2,6 +2,6 @@
 {
     public interface IProfitCalculator
     {
-        int GetMaximumProfit(int[] stockPrices);
+        decimal GetMaximumProfit(decimal[] stockPrices);
     }
 }

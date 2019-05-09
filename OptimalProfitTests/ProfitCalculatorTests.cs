@@ -1,6 +1,8 @@
 using FluentAssertions;
 using OptimalProfit;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Xunit;
 
 namespace OptimalProfitTests
@@ -8,16 +10,8 @@ namespace OptimalProfitTests
     public class ProfitCalculatorTests
     {
         [Theory]
-        [InlineData(new[] {5, 10}, 5)]
-        [InlineData(new[] {10, 7, 5, 8, 11, 9}, 6)]
-        [InlineData(new int[] {}, 0)]
-        [InlineData(new[] {1}, 0)]
-        [InlineData(new[] {10, 10, 10}, 0)]
-        [InlineData(new[] {10, 9, 8 }, 0)]
-        [InlineData(new[] {10, 9, 0 }, 0)]
-        [InlineData(new[] {10, 9, 5, 2, 8, 9, 14, 19, 0 }, 17)]
-        [InlineData(new[] {10, 9, 2, 20, 28, 3, 26 }, 26)]
-        public void CalculateProfits(int[] stockPrices, int optimalProfit)
+        [ClassData(typeof(ProfitCalculatorDataGenerator))]
+        public void CalculateProfits(decimal[] stockPrices, decimal optimalProfit)
         {
             var profitCalculator = new ProfitCalculator();
             var profit = profitCalculator.GetMaximumProfit(stockPrices);
@@ -25,14 +19,48 @@ namespace OptimalProfitTests
         }
 
         [Theory]
-        [InlineData(new[] { 5, -1 }, typeof(ArgumentOutOfRangeException))]
+        [ClassData(typeof(ProfitCalculatorInvalidDataGenerator))]
         [InlineData(null, typeof(ArgumentNullException))]
-        public void CalculateProfitsWithInvalidInputs(int[] stockPrices, Type exceptionType)
+        public void CalculateProfitsWithInvalidInputs(decimal[] stockPrices, Type exceptionType)
         {
             var profitCalculator = new ProfitCalculator();
             var exception = Record.Exception(() => profitCalculator.GetMaximumProfit(stockPrices));
             exception.Should().BeOfType(exceptionType);
         }
 
+    }
+
+    public class ProfitCalculatorDataGenerator : IEnumerable<object[]>
+    {
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[] { new[] {5m, 10m}, 5m },
+            new object[] { new[] {10m, 7m, 5m, 8m, 11m, 9m}, 6m},
+            new object[] { new decimal[] {}, 0m},
+            new object[] { new[] {1m}, 0m},
+            new object[] { new[] {0m}, 0m},
+            new object[] { new[] {10m, 10m, 10m}, 0m},
+            new object[] { new[] {10m, 9m, 8m }, 0m},
+            new object[] { new[] {10m, 9m, 0m }, 0m},
+            new object[] { new[] {10m, 9m, 5m, 2m, 8m, 9m, 14m, 19m, 0m }, 17m},
+            new object[] { new[] {10m, 9m, 2m, 20m, 28m, 3m, 26m }, 26m},
+            new object[] { new[] {10.01m, 10.02m, 20.10m }, 10.09m}
+        };
+
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public class ProfitCalculatorInvalidDataGenerator : IEnumerable<object[]>
+    {
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[] { new[] { 5.0m, -1.0m }, typeof(ArgumentOutOfRangeException) },
+        };
+
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

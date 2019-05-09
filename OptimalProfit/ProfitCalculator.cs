@@ -5,11 +5,11 @@ namespace OptimalProfit
 {
     public class ProfitCalculator : IProfitCalculator
     {
-        public int GetMaximumProfit(int[] stockPrices)
+        public decimal GetMaximumProfit(decimal[] stockPrices)
         {
             ValidateStockPrices(stockPrices);
 
-            var maxProfit = 0;
+            decimal maxProfit = 0;
             var sampleBuyPrice = stockPrices.FirstOrDefault();
             for (int i = 1; i < stockPrices.Length; ++i)
             {
@@ -29,12 +29,12 @@ namespace OptimalProfit
             return maxProfit;
         }
 
-        private int CalculateProfit(int buyPrice, int sellPrice)
+        private decimal CalculateProfit(decimal buyPrice, decimal sellPrice)
         {
             return sellPrice - buyPrice;
         }
 
-        private void ValidateStockPrices(int[] stockPrices)
+        private void ValidateStockPrices(decimal[] stockPrices)
         {
             if (stockPrices == null)
             {
