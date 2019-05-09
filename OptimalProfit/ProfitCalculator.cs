@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 
 namespace OptimalProfit
@@ -15,19 +15,19 @@ namespace OptimalProfit
             ValidateStockPrices(stockPrices);
 
             decimal maxProfit = 0;
-            var sampleBuyPrice = stockPrices.FirstOrDefault();
+            var potentialBuyPrice = stockPrices.FirstOrDefault();
             for (int i = 1; i < stockPrices.Length; ++i)
             {
-                var sampleSellPrice = stockPrices[i];
-                var sampleProfit = CalculateProfit(sampleBuyPrice, sampleSellPrice);
-                if (sampleProfit > maxProfit)
+                var potentialSellPrice = stockPrices[i];
+                var potentialProfit = CalculateProfit(potentialBuyPrice, potentialSellPrice);
+                if (potentialProfit > maxProfit)
                 {
-                    maxProfit = sampleProfit;
+                    maxProfit = potentialProfit;
                 }
 
-                if (sampleBuyPrice > sampleSellPrice)
+                if (potentialBuyPrice > potentialSellPrice)
                 {
-                    sampleBuyPrice = stockPrices[i];
+                    potentialBuyPrice = stockPrices[i];
                 }
             }
 
