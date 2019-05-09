@@ -1,5 +1,6 @@
 using FluentAssertions;
 using OptimalProfit;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -23,5 +24,16 @@ namespace OptimalProfitTests
             var profit = profitCalculator.GetMaximumProfit(stockPrices);
             profit.Should().Be(optimalProfit);
         }
+
+        [Theory]
+        [InlineData(new[] { 5, -1 }, typeof(ArgumentOutOfRangeException))]
+        [InlineData(null, typeof(ArgumentNullException))]
+        public void CalculateProfitsWithInvalidInputs(int[] stockPrices, Type exceptionType)
+        {
+            var profitCalculator = new ProfitCalculator();
+            var exception = Record.Exception(() => profitCalculator.GetMaximumProfit(stockPrices));
+            exception.Should().BeOfType(exceptionType);
+        }
+
     }
 }
