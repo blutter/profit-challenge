@@ -1,10 +1,15 @@
-﻿using System;
+using System;
 using System.Linq;
 
 namespace OptimalProfit
 {
     public class ProfitCalculator : IProfitCalculator
     {
+        /// <summary>
+        /// Calculate the maximum profit for a single buy/sell using Kandane's algorithm
+        /// </summary>
+        /// <param name="stockPrices">Array of stock prices in chronological order</param>
+        /// <returns>The maximum profit</returns>
         public decimal GetMaximumProfit(decimal[] stockPrices)
         {
             ValidateStockPrices(stockPrices);
