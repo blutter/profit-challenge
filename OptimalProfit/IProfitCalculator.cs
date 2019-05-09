@@ -4,6 +4,6 @@ namespace OptimalProfit
 {
     public interface IProfitCalculator
     {
-        int GetMaximumProfit(List<int> stockPriceList);
+        int GetMaximumProfit(int[] stockPrices);
     }
 }

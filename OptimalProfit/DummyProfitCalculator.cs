@@ -5,7 +5,7 @@ namespace OptimalProfit
 {
     public class DummyProfitCalculator : IProfitCalculator
     {
-        public int GetMaximumProfit(List<int> stockPriceList)
+        public int GetMaximumProfit(int[] stockPrices)
         {
             throw new NotImplementedException();
         }

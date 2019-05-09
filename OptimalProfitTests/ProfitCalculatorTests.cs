@@ -1,3 +1,4 @@
+using FluentAssertions;
 using OptimalProfit;
 using System.Collections.Generic;
 using Xunit;
@@ -19,8 +20,8 @@ namespace OptimalProfitTests
         public void CalculateProfits(int[] stockPrices, int optimalProfit)
         {
             var profitCalculator = new DummyProfitCalculator();
-            var stockPriceList = new List<int>(stockPrices);
-            var profit = profitCalculator.GetMaximumProfit(stockPriceList);
+            var profit = profitCalculator.GetMaximumProfit(stockPrices);
+            profit.Should().Be(optimalProfit);
         }
     }
 }
