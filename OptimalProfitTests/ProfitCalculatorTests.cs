@@ -19,7 +19,7 @@ namespace OptimalProfitTests
         [InlineData(new[] {10, 9, 2, 20, 28, 3, 26 }, 26)]
         public void CalculateProfits(int[] stockPrices, int optimalProfit)
         {
-            var profitCalculator = new DummyProfitCalculator();
+            var profitCalculator = new ProfitCalculator();
             var profit = profitCalculator.GetMaximumProfit(stockPrices);
             profit.Should().Be(optimalProfit);
         }
